@@ -1,0 +1,24 @@
+.navbar-brand {
+  padding: 0px;
+}
+
+.navbar-brand>img {
+  height: 100%;
+  padding: 8px;
+  border-radius: 10px;
+  width: auto;
+}
+
+.navbar button.btn.btn-default.filter::after {
+  content: '\e003';
+  color: deepskyblue;
+  display: block;
+  font-family: 'Glyphicons Halflings';
+}
+
+
+/*
+.navbar-nav>li {
+    float: right
+}
+*/
