@@ -1,22 +1,26 @@
-{{#with student}}
-<form method="POST" role="form">
-    <legend>Form title</legend>
+<div class="container">
+    {{#with student}}
+    <form method="POST" role="form">
+        <legend>{{title}}</legend>
 
-    <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" class="form-control" id="firstName" name="firstName" value="{{firstname}}" placeholder="First Name...">
-    </div>
-    <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" class="form-control" id="lastName" name="lastName" value="{{lastname}}" placeholder="Last Name...">
-    </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" value={{email}} placeholder="Email...">
-    </div>
-    {{!--Hide the id from in HTML--}}
-    <input type="hidden" class="form-control" id="id" name="id" value={{id}}>
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" value="{{firstname}}" placeholder="First Name...">
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" value="{{lastname}}" placeholder="Last Name...">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value={{email}} placeholder="Email...">
+        </div>
+        {{!--Hide the id from in HTML--}}
+        <input type="hidden" class="form-control" id="id" name="id" value={{id}}>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-{{/with}}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {{/with}}
+
+    <a class="btn btn-primary text-right" href="/">Back to list</a>
+</div>

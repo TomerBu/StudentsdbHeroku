@@ -35,8 +35,30 @@ router.get('/edit', function (req, res, next) {
     if (err)
       return next(err);
     res.render('edit', {
-      title: 'Edit Page',
+      title: 'Edit Student',
       student: result.rows[0]
+    });
+  })
+});
+
+router.post('/edit', function (req, res, next) {
+  var id = req.body.id;
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
+  var email = req.body.email;
+
+  var SQL = "UPDATE Students SET firstName=$1, lastName=$2, email=$3 WHERE id=$4"
+  query(SQL, [firstName, lastName, email, id], function (err, result) {
+    if (err)
+      return next(err);
+    res.render('edit', {
+      title: 'Updated Student',
+      student: {
+        firstname: firstName,
+        lastname: lastName,
+        email: email,
+        id: id
+      }
     });
   })
 });
