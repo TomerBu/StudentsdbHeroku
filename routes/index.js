@@ -14,16 +14,6 @@ router.get('/', function(req, res, next) {
             students: result.rows
         });
     })
-
-    /*
-
-    -- CREATE TABLE Students(id SERIAL PRIMARY KEY, firstName TEXT NOT NULL, lastName TEXT NOT NULL, email TEXT NOT NULL);
-    -- INSERT INTO Students(firstName, lastName, email) VALUES('Tomer', 'Buzaglo', 'Tomer@gmail.com') , ('Nona', 'Michelle', 'nMichelle@gmail.com');
-    -- SELECT * FROM Students
-    UPDATE Students SET email = 'Michelle@gmail.com' WHERE id = 2;
-    SELECT * FROM Students;
-     */
-
 });
 
 router.get('/edit', function(req, res, next) {
@@ -37,6 +27,34 @@ router.get('/edit', function(req, res, next) {
         res.render('edit', {
             title: 'Edit Student',
             student: result.rows[0]
+        });
+    })
+});
+
+router.get('/add', function(req, res, next) {
+    res.render('add', {
+        title: 'Add Student'
+    })
+});
+
+router.post('/add', function(req, res, next) {
+
+    var firstName = req.body.firstName;
+    var lastName = req.body.lastName;
+    var email = req.body.email;
+
+    var SQL = "INSERT INTO Students(firstName, lastName, email) VALUES($1, $2, $3)"
+    query(SQL, [firstName, lastName, email], function(err, result) {
+        if (err)
+            return next(err);
+        res.render('add', {
+            title: 'Added a Student!',
+            student: {
+                firstname: firstName,
+                lastname: lastName,
+                email: email
+            },
+            success: true
         });
     })
 });
