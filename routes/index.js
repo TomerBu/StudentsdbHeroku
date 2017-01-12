@@ -16,42 +16,13 @@ router.get('/', function(req, res, next) {
     })
 });
 
-router.get('/edit', function(req, res, next) {
-    var id = req.query.id;
-    if (!id) return next(new Error("No such user"));
-
-    var SQL = "SELECT * FROM Students WHERE id = $1;"
-    query(SQL, [id], function(err, result) {
-        if (err)
-            return next(err);
-        res.render('edit', {
-            title: 'Edit Student',
-            student: result.rows[0]
-        });
-    })
-});
-
 router.get('/add', function(req, res, next) {
     res.render('add', {
         title: 'Add Student'
     })
 });
 
-router.get('/delete', function(req, res, next) {
-    var id = req.query.id;
-    var SQL = "DELETE FROM Students WHERE id = $1";
-    query(SQL, [id], function(err, result) {
-        if (err)
-            return next(err);
-        res.render('delete', {
-            title: 'Deleted Student'
-        })
-    })
-
-});
-
 router.post('/add', function(req, res, next) {
-
     var firstName = req.body.firstName;
     var lastName = req.body.lastName;
     var email = req.body.email;
@@ -68,6 +39,21 @@ router.post('/add', function(req, res, next) {
                 email: email
             },
             success: true
+        });
+    })
+});
+
+router.get('/edit', function(req, res, next) {
+    var id = req.query.id;
+    if (!id) return next(new Error("No such user"));
+
+    var SQL = "SELECT * FROM Students WHERE id = $1;"
+    query(SQL, [id], function(err, result) {
+        if (err)
+            return next(err);
+        res.render('edit', {
+            title: 'Edit Student',
+            student: result.rows[0]
         });
     })
 });
@@ -94,6 +80,30 @@ router.post('/edit', function(req, res, next) {
     })
 });
 
+router.get('/delete', function(req, res, next) {
+    var id = req.query.id;
+    var SQL = "DELETE FROM Students WHERE id = $1";
+    query(SQL, [id], function(err, result) {
+        if (err)
+            return next(err);
+        res.render('delete', {
+            title: 'Deleted Student'
+        })
+    })
+});
+
+// router.get('/initDB', function(req, res, next) {
+//     var SQL = "CREATE TABLE Students(id SERIAL PRIMARY KEY," +
+//                                     "firstName TEXT NOT NULL," +
+//                                     "lastName TEXT NOT NULL," +
+//                                     "email TEXT NOT NULL" +
+//               ")";
+//     query(SQL, [], function(err, result) {
+//         if (err)
+//             return res.render('error', { error: err, message: err.message });
+//         res.render('index', {title:"DB Created successfully"})    
+//     });
+// });
 
 function query(SQL, args, callback) {
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
