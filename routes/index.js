@@ -37,6 +37,19 @@ router.get('/add', function(req, res, next) {
     })
 });
 
+router.get('/delete', function(req, res, next) {
+    var id = req.query.id;
+    var SQL = "DELETE FROM Students WHERE id = $1";
+    query(SQL, [id], function(err, result) {
+        if (err)
+            return next(err);
+        res.render('delete', {
+            title: 'Deleted Student'
+        })
+    })
+
+});
+
 router.post('/add', function(req, res, next) {
 
     var firstName = req.body.firstName;
